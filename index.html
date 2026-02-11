@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AdaptLearn — AI-Powered Personalized E-Learning Dashboard</title>
+  <meta name="description" content="An AI-powered e-learning platform that adapts its interface to each student's unique learning style, pace, and preferences.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <!-- Landing Hero Section -->
+  <section id="hero" class="hero">
+    <div class="hero-bg-shapes">
+      <div class="shape shape-1"></div>
+      <div class="shape shape-2"></div>
+      <div class="shape shape-3"></div>
+    </div>
+    <div class="hero-content">
+      <div class="hero-badge">🧠 AI-Powered Personalization</div>
+      <h1 class="hero-title">
+        <span class="gradient-text">AdaptLearn</span>
+        <br>Personalized E-Learning Dashboard
+      </h1>
+      <p class="hero-subtitle">
+        Experience how AI transforms a generic learning platform into a 
+        personalized experience tailored to each student's unique needs, 
+        learning style, and performance.
+      </p>
+      <div class="hero-cta">
+        <button class="btn btn-primary" onclick="showDashboard('before')">
+          <span>🎯</span> See Generic Dashboard
+        </button>
+        <button class="btn btn-secondary" onclick="showDashboard('after')">
+          <span>✨</span> See AI-Personalized
+        </button>
+      </div>
+      <div class="hero-stats">
+        <div class="stat">
+          <div class="stat-number">3x</div>
+          <div class="stat-label">Faster Learning</div>
+        </div>
+        <div class="stat">
+          <div class="stat-number">85%</div>
+          <div class="stat-label">Better Retention</div>
+        </div>
+        <div class="stat">
+          <div class="stat-number">92%</div>
+          <div class="stat-label">User Satisfaction</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Persona Selector (visible in 'after' mode) -->
+  <section id="persona-selector" class="persona-selector hidden">
+    <h2 class="section-title">Select a Student Persona</h2>
+    <p class="section-subtitle">See how the AI adapts the dashboard for each unique learner</p>
+    <div class="persona-cards">
+      <div class="persona-card active" data-persona="visual" onclick="selectPersona('visual')">
+        <div class="persona-avatar">🎨</div>
+        <h3>Priya — Visual Learner</h3>
+        <p>Prefers video content, infographics, and diagrams. Strong in creative subjects, needs help with math.</p>
+        <div class="persona-tags">
+          <span class="tag tag-visual">Visual</span>
+          <span class="tag tag-night">Night Owl</span>
+          <span class="tag tag-creative">Creative</span>
+        </div>
+      </div>
+      <div class="persona-card" data-persona="text" onclick="selectPersona('text')">
+        <div class="persona-avatar">📚</div>
+        <h3>Arjun — Text-Heavy Reader</h3>
+        <p>Loves reading detailed articles, research papers, and notes. Excels in theory, struggles with practicals.</p>
+        <div class="persona-tags">
+          <span class="tag tag-text">Text-Based</span>
+          <span class="tag tag-morning">Early Bird</span>
+          <span class="tag tag-analytical">Analytical</span>
+        </div>
+      </div>
+      <div class="persona-card" data-persona="struggling" onclick="selectPersona('struggling')">
+        <div class="persona-avatar">💪</div>
+        <h3>Sneha — Struggling Student</h3>
+        <p>New to the platform, having difficulty with multiple subjects. Needs simplified explanations and extra support.</p>
+        <div class="persona-tags">
+          <span class="tag tag-beginner">Beginner</span>
+          <span class="tag tag-support">Needs Support</span>
+          <span class="tag tag-evening">Evening Learner</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Dashboard Container -->
+  <section id="dashboard" class="dashboard-section hidden">
+    <div class="dashboard-header">
+      <div class="dash-top-bar">
+        <div class="dash-logo">
+          <span class="logo-icon">📘</span>
+          <span class="logo-text">AdaptLearn</span>
+        </div>
+        <div class="dash-nav">
+          <a href="#" class="nav-link active">Dashboard</a>
+          <a href="#" class="nav-link">My Courses</a>
+          <a href="#" class="nav-link">Assignments</a>
+          <a href="#" class="nav-link">Community</a>
+        </div>
+        <div class="dash-user">
+          <div class="notification-bell">
+            🔔 <span class="notif-badge" id="notifBadge">3</span>
+          </div>
+          <div class="user-avatar" id="userAvatar">👤</div>
+          <span class="user-name" id="userName">Student</span>
+        </div>
+      </div>
+      <div class="dash-welcome" id="dashWelcome">
+        <div class="welcome-text">
+          <h2 id="welcomeMsg">Welcome back!</h2>
+          <p id="welcomeSub">Here's your learning overview</p>
+        </div>
+        <div class="mode-indicator" id="modeIndicator">
+          <span class="mode-dot"></span>
+          <span id="modeText">Generic Mode</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Dashboard Grid -->
+    <div class="dashboard-grid" id="dashboardGrid">
+      <!-- Content injected by JS -->
+    </div>
+
+    <!-- Back to Toggle -->
+    <div class="dashboard-toggle">
+      <button class="btn btn-toggle" id="toggleBtn" onclick="toggleDashboard()">
+        Switch to AI-Personalized View ✨
+      </button>
+      <button class="btn btn-back" onclick="backToHero()">← Back to Home</button>
+    </div>
+  </section>
+
+  <!-- Before/After Comparison Section -->
+  <section id="comparison" class="comparison-section hidden">
+    <h2 class="section-title">Before vs After: Side-by-Side</h2>
+    <p class="section-subtitle">See the dramatic difference AI personalization makes</p>
+    <div class="comparison-container" id="comparisonContainer">
+      <!-- Filled by JS -->
+    </div>
+  </section>
+
+  <!-- AI Explanation Section -->
+  <section id="ai-explanation" class="ai-section">
+    <div class="ai-content">
+      <h2 class="section-title">How Our AI Works</h2>
+      <p class="section-subtitle">The intelligent engine behind every personalization</p>
+      <div class="ai-pipeline">
+        <div class="pipeline-step">
+          <div class="step-icon">📊</div>
+          <h3>1. Data Collection</h3>
+          <p>Tracks learning pace, quiz scores, content preferences, and study patterns (with consent).</p>
+        </div>
+        <div class="pipeline-arrow">→</div>
+        <div class="pipeline-step">
+          <div class="step-icon">🤖</div>
+          <h3>2. ML Analysis</h3>
+          <p>Collaborative filtering & NLP analyze patterns to build a unique learner profile.</p>
+        </div>
+        <div class="pipeline-arrow">→</div>
+        <div class="pipeline-step">
+          <div class="step-icon">🎯</div>
+          <h3>3. Personalization</h3>
+          <p>Dashboard layout, content format, and difficulty level adapt in real-time.</p>
+        </div>
+        <div class="pipeline-arrow">→</div>
+        <div class="pipeline-step">
+          <div class="step-icon">📈</div>
+          <h3>4. Feedback Loop</h3>
+          <p>Continuous improvement based on engagement metrics and learning outcomes.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <p>AdaptLearn — AI-Powered E-Learning Dashboard | Unit 1 Self-Learning Activity</p>
+    <p class="footer-sub">Built to demonstrate AI-driven UX personalization in education</p>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
